@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lê Hoàng Vân Anh - Tiệm Bánh Ngọt Chuẩn Âu</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..700;1,400..700&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary-bg: #F4F8FB; /* Xanh dương pastel cực nhạt */
+            --secondary-bg: #FFFFFF;
+            --accent-color: #7CA1C1; /* Xanh dương pastel chủ đạo */
+            --accent-hover: #5D85A8;
+            --text-color: #2C3E50;
+            --text-light: #6C7A89;
+            --border-color: #D1E0EE;
+            --card-bg: #FFFFFF;
+            --shadow: 0 10px 30px rgba(124, 161, 193, 0.15);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        body {
+            background-color: var(--primary-bg);
+            color: var(--text-color);
+            transition: background-color 0.4s ease, color 0.4s ease;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, .brand-name {
+            font-family: 'Playfair Display', serif;
+        }
+
+        /* Header & Navigation */
+        header {
+            background-color: var(--secondary-bg);
+            box-shadow: 0 2px 15px rgba(0,0,0,0.05);
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            transition: background-color 0.4s ease;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--accent-color);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 25px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-color);
+            font-weight: 500;
+            font-size: 15px;
+            position: relative;
+            transition: color 0.3s;
+            cursor: pointer;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--accent-color);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after, .nav-links a.active::after {
+            width: 100%;
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            color: var(--accent-color);
+        }
+
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        /* Theme Customizer Button */
+        .theme-btn {
+            background: var(--accent-color);
+            color: white;
+            border: none;
+            padding: 8px 14px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 13px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: background 0.3s;
+        }
+
+        .theme-btn:hover {
+            background: var(--accent-hover);
+        }
+
+        /* Main Content & Transitions */
+        main {
+            max-width: 1200px;
+            margin: 120px auto 50px;
+            padding: 0 20px;
+            min-height: 70vh;
+        }
+
+        .page-section {
+            display: none;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+
+        .page-section.active-page {
+            display: block;
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Hero / Trang chủ */
+        .hero {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: center;
+            padding: 40px 0;
+        }
+
+        .hero-content h1 {
+            font-size: 46px;
+            line-height: 1.2;
+            margin-bottom: 20px;
+            color: var(--text-color);
+        }
+
+        .hero-content h1 span {
+            color: var(--accent-color);
+        }
+
+        .hero-content p {
+            color: var(--text-light);
+            font-size: 17px;
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+
+        .btn-primary {
+            background-color: var(--accent-color);
+            color: white;
+            padding: 12px 28px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-block;
+            box-shadow: var(--shadow);
+            border: none;
+            cursor: pointer;
+            transition: background 0.3s, transform 0.2s;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--accent-hover);
+            transform: translateY(-2px);
+        }
+
+        .hero-img img {
+            width: 100%;
+            border-radius: 20px;
+            box-shadow: var(--shadow);
+            object-fit: cover;
+            height: 400px;
+        }
+
+        /* Products Grid */
+        .section-title {
+            text-align: center;
+            font-size: 34px;
+            margin-bottom: 40px;
+            color: var(--text-color);
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        .product-card {
+            background: var(--card-bg);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s, background 0.4s;
+            border: 1px solid var(--border-color);
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .product-img {
+            height: 220px;
+            width: 100%;
+            object-fit: cover;
+        }
+
+        .product-info {
+            padding: 20px;
+            text-align: center;
+        }
+
+        .product-info h3 {
+            font-size: 19px;
+            margin-bottom: 8px;
+        }
+
+        .product-info .price {
+            color: var(--accent-color);
+            font-weight: 700;
+            font-size: 17px;
+            margin-bottom: 15px;
+        }
+
+        /* Cart & Checkout Layout */
+        .cart-layout {
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            gap: 30px;
+        }
+
+        .cart-container, .checkout-container {
+            background: var(--secondary-bg);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border-color);
+            transition: background 0.4s;
+        }
+
+        .cart-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        .cart-table th, .cart-table td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid var(--border-color);
+            font-size: 14px;
+        }
+
+        .cart-total {
+            text-align: right;
+            font-size: 18px;
+            font-weight: 700;
+            margin-top: 15px;
+            color: var(--accent-color);
+        }
+
+        /* Form điền thông tin khách hàng */
+        .checkout-container h3 {
+            font-size: 20px;
+            margin-bottom: 20px;
+            color: var(--text-color);
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 14px;
+            font-weight: 500;
+            margin-bottom: 5px;
+            color: var(--text-color);
+        }
+
+        .form-group input, .form-group textarea {
+            width: 100%;
+            padding: 10px 15px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            background: var(--primary-bg);
+            color: var(--text-color);
+            font-size: 14px;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus, .form-group textarea:focus {
+            border-color: var(--accent-color);
+        }
+
+        .checkout-btn {
+            width: 100%;
+            margin-top: 10px;
+            padding: 12px;
+            text-align: center;
+        }
+
+        /* About & Contact & Reviews Styles */
+        .about-content, .contact-content {
+            background: var(--secondary-bg);
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: var(--shadow);
+            line-height: 1.8;
+            border: 1px solid var(--border-color);
+        }
+
+        .reviews-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .review-card {
+            background: var(--secondary-bg);
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border-color);
+        }
+
+        .review-card .stars {
+            color: #f39c12;
+            margin-bottom: 10px;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--secondary-bg);
+            text-align: center;
+            padding: 25px;
+            color: var(--text-light);
+            border-top: 1px solid var(--border-color);
+            margin-top: 50px;
+            transition: background-color 0.4s;
+        }
+
+        /* Responsive */
+        @media(max-width: 900px) {
+            .hero {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            .cart-layout {
+                grid-template-columns: 1fr;
+            }
+            .nav-links {
+                display: none; /* Thu gọn trên mobile nếu cần */
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header>
+        <div class="nav-container">
+            <a class="logo" onclick="switchPage('home', event)">
+                <i class="fa-solid fa-cake-candles"></i> Lê Hoàng Vân Anh
+            </a>
+            <ul class="nav-links">
+                <li><a class="nav-link active" onclick="switchPage('home', event)">Trang chủ</a></li>
+                <li><a class="nav-link" onclick="switchPage('products', event)">Sản phẩm</a></li>
+                <li><a class="nav-link" onclick="switchPage('cart', event)">Giỏ hàng</a></li>
+                <li><a class="nav-link" onclick="switchPage('about', event)">Thông tin</a></li>
+                <li><a class="nav-link" onclick="switchPage('reviews', event)">Đánh giá</a></li>
+                <li><a class="nav-link" onclick="switchPage('contact', event)">Liên hệ</a></li>
+            </ul>
+            <div class="nav-actions">
+                <button class="theme-btn" onclick="toggleTheme()">
+                    <i class="fa-solid fa-palette"></i> Đổi màu nền
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Pages -->
+    <main>
+        <!-- Trang chủ -->
+        <section id="home" class="page-section active-page">
+            <div class="hero">
+                <div class="hero-content">
+                    <h1>Tiệm Bánh Ngọt Chuẩn Âu <span>Lê Hoàng Vân Anh</span></h1>
+                    <p>Khám phá hương vị bánh ngọt Pháp, Ý tinh tế được làm thủ công mỗi ngày với nguyên liệu cao cấp nhất, mang lại trải nghiệm vị giác thăng hoa.</p>
+                    <button class="btn-primary" onclick="switchPage('products')">Khám Phá Ngay</button>
+                </div>
+                <div class="hero-img">
+                    <img src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&w=600&q=80" alt="Bánh ngọt chuẩn Âu">
+                </div>
+            </div>
+        </section>
+
+        <!-- Sản phẩm -->
+        <section id="products" class="page-section">
+            <h2 class="section-title">Bộ Sưu Tập Bánh Chuẩn Âu</h2>
+            <div class="products-grid">
+                <div class="product-card">
+                    <img src="https://images.unsplash.com/photo-1606313564200-e75d5e30476c?auto=format&fit=crop&w=500&q=80" alt="Macaron Pháp" class="product-img">
+                    <div class="product-info">
+                        <h3>Bánh Brownie</h3>
+                        <div class="price">80,000 đ</div>
+                        <button class="btn-primary" onclick="addToCart('Macaron Pháp', 80000)">Thêm vào giỏ</button>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <img src="https://images.unsplash.com/photo-1533134242443-d4fd215305ad?auto=format&fit=crop&w=500&q=80" alt="Tiramisu Ý" class="product-img">
+                    <div class="product-info">
+                        <h3>Bánh Tart việt quất</h3>
+                        <div class="price">30,000 đ</div>
+                        <button class="btn-primary" onclick="addToCart('Tiramisu Ý', 30000)">Thêm vào giỏ</button>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <img src="https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=500&q=80" alt="Croissant Bơ Pháp" class="product-img">
+                    <div class="product-info">
+                        <h3>Croissant Bơ Pháp</h3>
+                        <div class="price">45,000 đ</div>
+                        <button class="btn-primary" onclick="addToCart('Croissant Bơ Pháp', 45000)">Thêm vào giỏ</button>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <<img src="https://images.unsplash.com/photo-1562376552-0d160a2f238d?auto=format&fit=crop&w=800&q=80" alt="Bánh Waffle ăn kèm trái cây và kem">
+                    <div class="product-info">
+                        <h3>Bánh Waffle</h3>
+                        <div class="price">20,000 đ</div>
+                        <button class="btn-primary" onclick="addToCart('Croissant Bơ Pháp', 20000)">Thêm vào giỏ</button>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <<img src="https://images.unsplash.com/photo-1606313564200-e75d5e30476c?auto=format&fit=crop&w=800&q=80" alt="Bánh Eclair phủ sô-cô-la hấp dẫn">
+                    <div class="product-info">
+                        <h3>Bánh Eclair</h3>
+                        <div class="price">30,000 đ</div>
+                        <button class="btn-primary" onclick="addToCart('Croissant Bơ Pháp', 30000)">Thêm vào giỏ</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Giỏ hàng & Điền thông tin -->
+        <section id="cart" class="page-section">
+            <h2 class="section-title">Giỏ Hàng & Thanh Toán</h2>
+            <div class="cart-layout">
+                <!-- Danh sách giỏ hàng -->
+                <div class="cart-container">
+                    <h3 style="margin-bottom: 15px; font-size: 18px;">Sản phẩm đã chọn</h3>
+                    <table class="cart-table">
+                        <thead>
+                            <tr>
+                                <th>Tên sản phẩm</th>
+                                <th>Đơn giá</th>
+                                <th>SL</th>
+                                <th>Thành tiền</th>
+                            </tr>
+                        </thead>
+                        <tbody id="cart-items">
+                            <tr>
+                                <td colspan="4" style="text-align: center; color: var(--text-light);">Giỏ hàng đang trống. Hãy chọn thêm sản phẩm nhé!</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="cart-total" id="cart-total">Tổng cộng: 0 đ</div>
+                </div>
+
+                <!-- Form điền thông tin khách hàng -->
+                <div class="checkout-container">
+                    <h3>Thông Tin Nhận Hàng</h3>
+                    <form id="checkout-form" onsubmit="submitOrder(event)">
+                        <div class="form-group">
+                            <label>Họ và tên khách hàng</label>
+                            <input type="text" id="cus-name" required placeholder="Nhập họ tên của bạn...">
+                        </div>
+                        <div class="form-group">
+                            <label>Số điện thoại liên hệ</label>
+                            <input type="tel" id="cus-phone" required placeholder="Nhập số điện thoại...">
+                        </div>
+                        <div class="form-group">
+                            <label>Địa chỉ nhận bánh</label>
+                            <textarea id="cus-address" rows="3" required placeholder="Nhập số nhà, tên đường, quận/huyện..."></textarea>
+                        </div>
+                        <button type="submit" class="btn-primary checkout-btn">Xác Nhận Đặt Hàng</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <!-- Thông tin -->
+        <section id="about" class="page-section">
+            <h2 class="section-title">Về Lê Hoàng Vân Anh</h2>
+            <div class="about-content">
+                <p>Được thành lập bởi đầu bếp bánh ngọt tâm huyết, <strong>Lê Hoàng Vân Anh</strong> mang sứ mệnh đem hương vị bánh Âu chính thống đến gần hơn với tín đồ ẩm thực Việt.</p>
+                <br>
+                <p>Chúng tôi cam kết sử dụng 100% bơ nhập khẩu từ Pháp, bột mỳ hảo hạng và trái cây tươi tuyển chọn nghiêm ngặt mỗi ngày để mỗi chiếc bánh không chỉ là món ăn, mà còn là một tác phẩm nghệ thuật.</p>
+            </div>
+        </section>
+
+        <!-- Đánh giá -->
+        <section id="reviews" class="page-section">
+            <h2 class="section-title">Đánh Giá Từ Khách Hàng</h2>
+            <div class="reviews-grid">
+                <div class="review-card">
+                    <div class="stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+                    <p>"Bánh Tart ở đây béo ngậy vị phô mai mà không hề ngấy. Sẽ ủng hộ shop dài lâu!"</p>
+                    <br><strong>- Chị Lan Hương</strong>
+                </div>
+                <div class="review-card">
+                    <div class="stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+                    <p>"Không gian thương hiệu tinh tế, Macaron chuẩn vị Pháp, ngọt thanh và thơm mùi hạnh nhân."</p>
+                    <br><strong>- Anh Minh Quân</strong>
+                </div>
+            </div>
+        </section>
+
+        <!-- Liên hệ -->
+        <section id="contact" class="page-section">
+            <h2 class="section-title">Liên Hệ Với Chúng Tôi</h2>
+            <div class="contact-content">
+                <p><i class="fa-solid fa-location-dot" style="color: var(--accent-color);"></i> <strong>Địa chỉ:</strong> TP.Đồng Nai</p>
+                <p><i class="fa-solid fa-phone" style="color: var(--accent-color);"></i> <strong>Hotline:</strong> 03XX XXX XXX</p>
+                <p><i class="fa-solid fa-envelope" style="color: var(--accent-color);"></i> <strong>Email:</strong> contact@lehoang.bakery</p>
+                <p><i class="fa-solid fa-clock" style="color: var(--accent-color);"></i> <strong>Giờ mở cửa:</strong> 08:00 - 21:00 (Thứ Hai - Chủ Nhật)</p>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2026 Lê Hoàng Vân Anh Bakery. All rights reserved.</p>
+    </footer>
+
+    <!-- JavaScript Xử lý logic -->
+    <script>
+        // Chuyển trang mượt mà (Smooth Page Transition)
+        function switchPage(pageId, event) {
+            const sections = document.querySelectorAll('.page-section');
+            sections.forEach(section => {
+                section.classList.remove('active-page');
+            });
+
+            const navLinks = document.querySelectorAll('.nav-link');
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+            });
+
+            setTimeout(() => {
+                const targetPage = document.getElementById(pageId);
+                if (targetPage) {
+                    targetPage.classList.add('active-page');
+                }
+            }, 150);
+
+            if (event && event.target) {
+                event.target.classList.add('active');
+            }
+        }
+
+        // Tùy chỉnh màu nền và tone trang web qua lại
+        let themeState = 0;
+        const themes = [
+            { bg: '#F4F8FB', card: '#FFFFFF', accent: '#7CA1C1', text: '#2C3E50' }, // Xanh dương pastel sáng
+            { bg: '#EBF3F9', card: '#FFFFFF', accent: '#5383B3', text: '#1A2E40' }, // Xanh dương đậm hơn
+            { bg: '#FFFFFF', card: '#F8FAFC', accent: '#6FA3D8', text: '#2D3748' }  // Trắng tinh khôi phối xanh
+        ];
+
+        function toggleTheme() {
+            themeState = (themeState + 1) % themes.length;
+            const currentTheme = themes[themeState];
+            
+            const root = document.documentElement;
+            root.style.setProperty('--primary-bg', currentTheme.bg);
+            root.style.setProperty('--secondary-bg', currentTheme.card);
+            root.style.setProperty('--accent-color', currentTheme.accent);
+            root.style.setProperty('--text-color', currentTheme.text);
+        }
+
+        // Quản lý giỏ hàng & điền thông tin khách hàng
+        let cart = [];
+
+        function addToCart(productName, price) {
+            const existingItem = cart.find(item => item.name === productName);
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                cart.push({ name: productName, price: price, quantity: 1 });
+            }
+            alert(`Đã thêm "${productName}" vào giỏ hàng!`);
+            updateCartUI();
+        }
+
+        function updateCartUI() {
+            const cartTableBody = document.getElementById('cart-items');
+            if (cart.length > 0) {
+                let total = 0;
+                cartTableBody.innerHTML = cart.map(item => {
+                    let subtotal = item.price * item.quantity;
+                    total += subtotal;
+                    return `
+                        <tr>
+                            <td>${item.name}</td>
+                            <td>${item.price.toLocaleString()} đ</td>
+                            <td>${item.quantity}</td>
+                            <td>${subtotal.toLocaleString()} đ</td>
+                        </tr>
+                    `;
+                }).join('');
+                document.getElementById('cart-total').innerText = `Tổng cộng: ${total.toLocaleString()} đ`;
+            } else {
+                cartTableBody.innerHTML = `<tr><td colspan="4" style="text-align: center; color: var(--text-light);">Giỏ hàng đang trống. Hãy chọn thêm sản phẩm nhé!</td></tr>`;
+                document.getElementById('cart-total').innerText = "Tổng cộng: 0 đ";
+            }
+        }
+
+        function submitOrder(event) {
+            event.preventDefault();
+            if (cart.length === 0) {
+                alert("Giỏ hàng của bạn đang trống, vui lòng chọn bánh trước khi đặt hàng!");
+                return;
+            }
+
+            const name = document.getElementById('cus-name').value;
+            const phone = document.getElementById('cus-phone').value;
+            const address = document.getElementById('cus-address').value;
+
+            alert(`Cảm ơn quý khách ${name}! Đơn hàng của bạn đã được đặt thành công.\nTiệm bánh Lê Hoàng Vân Anh sẽ liên hệ số điện thoại ${phone} và giao bánh đến địa chỉ:\n${address} trong thời gian sớm nhất.`);
+            
+            // Reset giỏ hàng và form
+            cart = [];
+            updateCartUI();
+            document.getElementById('checkout-form').reset();
+        }
+    </script>
+</body>
+</html>
